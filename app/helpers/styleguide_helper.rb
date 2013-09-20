@@ -106,11 +106,8 @@ module StyleguideHelper
   # Markdownify some text.
 
   def markdown(text)
-    require 'bluecloth'
-
-    str = BlueCloth.new(text).to_html
-    str = str.html_safe  if str.respond_to?(:html_safe)
-    str
+    require 'redcarpet'
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :tables => true, :fenced_code_blocks => true, :hard_wrap => true, :space_after_headers => true).render(text).html_safe
   end
 
 end
