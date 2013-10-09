@@ -7,17 +7,24 @@ $dark-checkerboard: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAAAA
 $mono: 'Menlo', 'Monaco', 'Lucida Console', monospace
 $sans: 'Helvetica Neue', sans-serif
 $bluish: #f0f7fb
+$break-point: 768px
 
-html, body
+=code
+  background: #f8f8f8
+  padding: 0 4px
+  margin: 0 2px
+  border-radius: 3px
+  border: solid 1px #ccc
+  box-sizing: border-box
+
+html,
+.fnkss-body
   margin: 0
   padding: 0
 
-@mixin code
-  background: #eee
-  padding: 4px 4px
-  border-radius: 2px
-  margin: 0 2px
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2)
+.fnkss-body
+  @media screen and (max-width: $break-point)
+    padding: 0 16px !important
 
 .sg-badge
   position: absolute
@@ -36,12 +43,13 @@ html, body
   font-size: 9pt
   font-family: $sans
 
-body
-  padding: $pad !important
+.fnkss-body
+  padding: $pad
   background: #fcfcfc !important
   border-top: solid 6px #222 !important
 
-html, body
+html,
+.fnkss-body
   overflow: inherit !important
 
 // ### Layout
@@ -110,6 +118,9 @@ body.sg-full
   font-family: $sans
   text-align: center
 
+  &:focus
+    outline: 0
+
   &:before
     content: '\25c0'
     display: none
@@ -127,7 +138,6 @@ body.sg-full
 
 .sg-toc
   h1
-    font-size: 18pt
     color: #888
     font-weight: 200
     line-height: 1.2
@@ -140,10 +150,14 @@ body.sg-full
       text-align: right
 
     small
-      font-size: 1em
+      font-size: .6em
+      margin-right: -7px
+      letter-spacing: 7px
     strong
       font-weight: bold
       color: #222
+      margin-bottom: 6px
+      font-size: 36pt
 
   ul, li
     list-style-type: none
@@ -211,6 +225,8 @@ body.sg-full
   .sg-filename
     @extend .sg-badge
     display: none
+    @media screen and (max-width: $break-point)
+      display: block
 
   &:hover .sg-filename
     display: block
@@ -220,19 +236,21 @@ body.sg-full
     line-height: 1.5
     font-family: $sans
     position: relative
+    padding-top: 0
+    max-width: 100%
 
     code
-      @include code
+      +code
 
-  > h3 a, > h3 a:visited
+  .number a,
+  .number a:visited
     background: #222
-    color: #ddd
+    color: #fff
     text-align: center
-    font-weight: 200
-    font-size: 11pt
+    font-weight: 800
+    font-size: 14pt
     font-family: $sans
-
-    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05)
+    text-decoration: none
 
     display: block
     width: 50px
@@ -241,26 +259,24 @@ body.sg-full
 
     float: left
     margin-left: -70px
-    border-radius: 25px
+    border-radius: 50%
 
-  > h3 a:hover
+  .number a:hover
     background: #444
 
   .sg-description
     padding: 5px 0 25px 0
-    font-size: 10pt
+    font-size: 12pt
     color: #444
+    @media screen and (max-width: $break-point)
+      font-size: 11pt
 
   .sg-description
-    p, ul
-      margin-top: 5px
 
     h1, h2, h3, h4, h5, h6
       color: #222
-      margin: 0
-      padding: 0
       font-weight: bold
-      font-size: 12pt
+
 
       code
         font-size: 0.9em
@@ -277,6 +293,69 @@ body.sg-full
         &:before
           content: '\203a'
           margin-right: 10px
+
+    h2
+      font-size: 22pt
+      margin-bottom: .4em
+      @media screen and (max-width: 767px)
+        font-size: 18pt
+        margin-bottom: .8em
+
+    h3
+      font-size: 18pt
+      margin-top: 1.4em
+      margin-bottom: .8em
+      border-bottom: #222 1px solid
+      padding-bottom: .3em
+      @media screen and (max-width: 767px)
+        font-size: 14pt
+        margin-bottom: .8em
+    h4
+      font-size: 14pt
+      margin-top: 1.6em
+      margin-bottom: .8em
+      @media screen and (max-width: 767px)
+        font-size: 11pt
+        margin-bottom: .8em
+
+    p
+      line-height: 1.9
+      margin-bottom: 1.4em
+    ul,
+    ol
+      margin-bottom: 1.4em
+    li
+      line-height: 1.6
+      margin-bottom: .4em
+    code
+      display: inline-block
+      color: #000
+    pre
+      margin-bottom: 1.4em
+      display: block
+      code
+        display: block
+        padding: 8px 16px
+        line-height: 2
+        font-size: 11pt
+    hr
+      display: block
+      height: 5px
+      border: none
+      background-color: #ccc
+      margin-top: 2.4em
+      margin-bottom: 2.4em
+      &:after
+        content: ""
+        display: block
+        border-bottom: 5px dashed #222
+    img
+      display: block
+      margin-bottom: 1.4em
+      max-width: 100%
+      @media screen and (max-width: $break-point)
+        margin-left: auto
+        margin-right: auto
 
   ul.sg-modifiers
     &
@@ -308,11 +387,11 @@ body.sg-full
 
   pre
     padding: 20px !important
-    line-height: 1.5
+    line-height: 2
     border: 0 !important
     color: #30305a
     text-shadow: 0 1px 0 rgba(white, 0.6)
-    font-size: 8pt
+    font-size: 10pt
     font-family: $mono
 
     overflow-y: scroll
@@ -574,6 +653,9 @@ body.sg-full
 
   cursor: pointer
 
+  &:focus
+    outline: 0
+
   &:hover
     background: #f0fafa
     color: #509090
@@ -597,3 +679,40 @@ body.sg-full
     text-shadow: 0 1px 0 rgba(black, 0.3)
     box-shadow: inset 0 0 0 1px rgba(black, 0.1)
 
+body
+  @media screen and (max-width: $break-point)
+    .sg-body
+      margin-left: 0
+    .sg-toc
+      position: relative
+      width: auto
+      h1
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        text-align: center
+        padding: 0
+        strong
+          text-align: center
+          margin-bottom: -6px
+        small
+          display: inline-block
+          margin-left: 7px
+          text-align: center
+      ul
+        display: none
+    .sg-toggle-sidebar
+      display: none
+    .sg-example
+      margin-left: 0px
+      .number
+        a
+          margin-left: 0px
+          margin-bottom: 10px
+          float: none
+    .sg-canvas
+      >div
+        padding: 18px
+        @media screen and (max-width: $break-point)
+          padding: 4px

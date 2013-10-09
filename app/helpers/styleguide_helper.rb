@@ -107,7 +107,7 @@ module StyleguideHelper
 
   def markdown(text)
     require 'redcarpet'
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :tables => true, :fenced_code_blocks => true, :hard_wrap => true, :space_after_headers => true).render(text).html_safe
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :tables => true, :fenced_code_blocks => true, :hard_wrap => true, :space_after_headers => true, :filter_html => true, :no_intraemphasis => true, :fenced_code => true, :gh_blockcode => true).render(text).html_safe
   end
 
 end

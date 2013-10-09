@@ -14,12 +14,36 @@
       %script{src: 'http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js'}
     = yield :head  if content_for?(:head)
 
-%body
-  = yield :body  if content_for?(:body)
-  = javascript_include_tag "kss"
-  :javascript
-      $(function(){
-        $('a[href=#]').click(function(){
-          return false;
-        })
-      });
+  %body.fnkss-body
+    = yield :body  if content_for?(:body)
+    = javascript_include_tag "kss"
+    :javascript
+        $(function(){
+          $('a[href=#]').click(function(){
+            return false;
+          })
+          $('code').each(function(){
+          var sq = $(this).text();
+          $(this).text(
+            sq.replace(/&#x27;/g,"'")
+            );
+          })
+          $('code').each(function(){
+          var dq = $(this).text();
+          $(this).text(
+            dq.replace(/&quot;/g,'"')
+            );
+          })
+          $('code').each(function(){
+          var abo = $(this).text();
+          $(this).text(
+            abo.replace(/&lt;/g,'<')
+            );
+          })
+          $('code').each(function(){
+          var abc = $(this).text();
+          $(this).text(
+            abc.replace(/&gt;/g,'>')
+            );
+          })
+        });

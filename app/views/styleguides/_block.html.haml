@@ -5,14 +5,14 @@
 -# your app.
 
 %section.sg-example{id: section.section}
-  %h3
+  %h3.number
     %a{href: "##{section.section}"}= section.section
 
   %button.sg-button.sg-view-code HTML
 
   .sg-description
     %span.sg-filename= section.filename
-    != markdown h(section.description)
+    !~ markdown h(section.description)
 
     - if section.modifiers.any?
       %ul.sg-modifiers
